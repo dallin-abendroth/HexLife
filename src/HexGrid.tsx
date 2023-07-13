@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { ButtonContainer } from './ButtonContainer.styled';
 import { PlayButton } from './PlayButton.styled';
 import { RewindButton } from './RewindButton.styled';
+import { PauseButton } from './PauseButton.styled';
 
 type HexGridProps = {
   rows: number,
@@ -39,7 +40,8 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols, hexSize }) => {
       <ButtonContainer>
         <ClearButton onClick={clearGrid}>X</ClearButton>
         <PlayButton />
-        <RewindButton />
+        <PauseButton disabled />
+        <RewindButton disabled />
       </ButtonContainer>
       {grid.map((row, i) => (
         <HexRow key={i} isEven={i % 2 === 0} hexSize={hexSize}>

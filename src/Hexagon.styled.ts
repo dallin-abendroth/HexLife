@@ -19,6 +19,10 @@ export const HexagonStyled = styled.div<HexagonStyledProps>`
   cursor: pointer;
   display: flex;
   box-shadow: 1px 0px 0px 1px black;
+
+  &:hover {
+    background-color: white
+  }
   
   &::before {
     content: "";

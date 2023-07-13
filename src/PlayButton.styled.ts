@@ -19,15 +19,10 @@ export const PlayButton = styled.button`
   }
 
   &::before {
-    content: "";
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 15px solid white;
+    content: "⏵";
+    font-size: 40px;
     position: relative;
-    right: -2px;
-    &:hover {
-        color: black;
-        background-color: white;
-    }
+    top: 3px;
+    left: 1px;
   }
 `;
