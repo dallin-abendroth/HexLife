@@ -13,7 +13,7 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols }) => {
 
   const toggleHexagon = (row: number, col: number) => {
     setGrid(prevGrid => {
-      const newGrid = [...prevGrid];
+      const newGrid = prevGrid.map(innerArray =>[...innerArray]);
       newGrid[row][col] = !newGrid[row][col];
       return newGrid;
     });
@@ -22,7 +22,7 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols }) => {
   return (
     <div>
       {grid.map((row, i) => (
-        <div key={i}>
+        <div key={i} style={{ marginLeft: i % 2 === 0 ? "0px" : "15px" }}>
           {row.map((toggled, j) => (
             <Hexagon key={j} toggled={toggled} onClick={() => toggleHexagon(i, j)} />
           ))}

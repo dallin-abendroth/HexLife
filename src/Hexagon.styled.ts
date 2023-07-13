@@ -11,25 +11,7 @@ export const HexagonStyled = styled.div<HexagonStyledProps>`
   margin: 17.32px 0;
   position: relative;
   cursor: pointer;
-
-  &:before, &:after {
-    content: "";
-    position: absolute;
-    width: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-  }
-
-  &:before {
-    bottom: 100%;
-    border-bottom: 8.66px solid ${props => (props.toggled ? 'green' : 'gray')};
-  }
-
-  &:after {
-    top: 100%;
-    width: 0;
-    border-top: 8.66px solid ${props => (props.toggled ? 'green' : 'gray')};
-  }
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 
   &:nth-child(odd) {
     margin-left: 15px;
