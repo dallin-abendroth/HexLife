@@ -5,10 +5,7 @@ type HexagonStyledProps = {
   hexSize: number,
 };
 
-const hexagonWidth = 15;  // in px
-const borderSize = 1; // in px
-const hexagonHeight = hexagonWidth / (Math.sqrt(3) / 2); // for equilateral hexagon, width = height * (sqrt(3)/2)
-const verticalMargin = -(hexagonHeight-hexagonWidth);
+const borderSize = 0.5; // in px
 
 export const HexagonStyled = styled.div<HexagonStyledProps>`
   width: ${props => props.hexSize}px;
@@ -18,7 +15,6 @@ export const HexagonStyled = styled.div<HexagonStyledProps>`
   position: relative;
   cursor: pointer;
   display: flex;
-  box-shadow: 1px 0px 0px 1px black;
 
   &:hover {
     background-color: white

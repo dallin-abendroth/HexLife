@@ -41,15 +41,18 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols, hexSize }) => {
     setGrid(savedGrid);
   }
 
-  const toggleHexagon = (row: number, col: number) => {
-    const newGrid = grid.map(innerArray => [...innerArray]);
-    newGrid[row][col] = !newGrid[row][col];
-    setGrid(newGrid);
-
-    // If after toggling, the grid is not empty, save the state
-    if (newGrid.flat().includes(true)) {
-      setSavedGrid(newGrid);
-    }
+  const toggleHexagon = (rowIndex: number, colIndex: number) => {
+    setGrid(oldGrid => {
+      const newGrid = [...oldGrid];
+      newGrid[rowIndex] = [...oldGrid[rowIndex]]; // Copy the row
+      newGrid[rowIndex][colIndex] = !newGrid[rowIndex][colIndex];
+  
+      if (newGrid.flat().includes(true)) {
+        setSavedGrid(newGrid);
+      }
+  
+      return newGrid;
+    });
   };
 
   return (
@@ -63,7 +66,7 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols, hexSize }) => {
       {grid.map((row, i) => (
         <HexRow key={i} isEven={i % 2 === 0} hexSize={hexSize}>
           {row.map((toggled, j) => (
-            <Hexagon key={j} toggled={toggled} hexSize={hexSize} onClick={() => toggleHexagon(i, j)} />
+            <Hexagon key={j} row={i} col={j} toggled={toggled} hexSize={hexSize} onClick={toggleHexagon} />
           ))}
         </HexRow>
       ))}
