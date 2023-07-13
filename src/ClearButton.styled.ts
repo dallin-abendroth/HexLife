@@ -19,4 +19,11 @@ export const ClearButton = styled.button`
     color: black;
     background-color: white;
   }
+
+  &::before {
+    content: "X";
+    font-size: 30px;
+    position: relative;
+    top: 1px;
+  }
 `;

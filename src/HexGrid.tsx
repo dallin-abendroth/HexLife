@@ -6,6 +6,7 @@ import { ButtonContainer } from './ButtonContainer.styled';
 import { PlayButton } from './PlayButton.styled';
 import { RewindButton } from './RewindButton.styled';
 import { PauseButton } from './PauseButton.styled';
+import { calculateNextGridState } from './utils';
 
 type HexGridProps = {
   rows: number,
@@ -23,8 +24,15 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols, hexSize }) => {
     return Array(rows).fill(null).map(() => Array(cols).fill(false));
   });
 
+  const isGridEmpty = !grid.flat().includes(true);
+
   const clearGrid = () => {
     setGrid(Array(rows).fill(null).map(() => Array(cols).fill(false)));
+  };
+
+  const moveForward = () => {
+    const nextGridState = calculateNextGridState(grid);
+    setGrid(nextGridState);
   };
 
   const toggleHexagon = (row: number, col: number) => {
@@ -38,10 +46,10 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols, hexSize }) => {
   return (
     <div>
       <ButtonContainer>
-        <ClearButton onClick={clearGrid}>X</ClearButton>
-        <PlayButton />
+        <ClearButton onClick={clearGrid} disabled={isGridEmpty} />
+        <PlayButton onClick={moveForward} disabled={isGridEmpty} />
         <PauseButton disabled />
-        <RewindButton disabled />
+        <RewindButton disabled={isGridEmpty} />
       </ButtonContainer>
       {grid.map((row, i) => (
         <HexRow key={i} isEven={i % 2 === 0} hexSize={hexSize}>

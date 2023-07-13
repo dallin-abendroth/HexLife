@@ -18,25 +18,20 @@ export const RewindButton = styled.button`
     cursor: not-allowed;
 
     &::after {
-        content: '↺';
-        color: #333;
-        font-size: 30px;
-        position: relative;
-        top: 3px;
-        -webkit-transform: rotate(180deg);
+      color: #333;
     }
+  }
+
+  &::after {
+    content: '↺';
+    font-size: 30px;
+    position: relative;
+    top: 3px;
+    -webkit-transform: rotate(180deg);
   }
 
   &:not(:disabled):hover {
     color: black;
     background-color: white;
-
-    &::after {
-        content: '↺';
-        font-size: 30px;
-        position: relative;
-        top: 3px;
-        -webkit-transform: rotate(180deg);
-    }
   }
 `;
