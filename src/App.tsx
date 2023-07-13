@@ -4,16 +4,17 @@ import styled from '@emotion/styled';
 
 const AppContainer = styled.div`
   background-color: black;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 `;
+
 
 const App: React.FC = () => {
   return (
     <AppContainer>
-      <HexGrid rows={20} cols={20} />
+      <HexGrid rows={40} cols={40} />
     </AppContainer>
   );
 }

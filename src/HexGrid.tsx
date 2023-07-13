@@ -9,7 +9,7 @@ type HexGridProps = {
 
 const HexRow = styled.div<{ isEven: boolean }>`
   display: flex;
-  margin-left: ${props => props.isEven ? "0px" : "15px"};
+  margin-left: ${props => props.isEven ? "0px" : "7.5px"};
 `;
 
 const HexGrid: React.FC<HexGridProps> = ({ rows, cols }) => {
@@ -18,7 +18,6 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols }) => {
   });
 
   const toggleHexagon = (row: number, col: number) => {
-    console.log("column "+col+", row "+row)
     setGrid(prevGrid => {
       const newGrid = prevGrid.map(innerArray => [...innerArray]);
       newGrid[row][col] = !newGrid[row][col];
