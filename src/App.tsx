@@ -14,7 +14,7 @@ const AppContainer = styled.div`
 const App: React.FC = () => {
   return (
     <AppContainer>
-      <HexGrid rows={40} cols={40} />
+      <HexGrid rows={40} cols={40} hexSize={15} />
     </AppContainer>
   );
 }
