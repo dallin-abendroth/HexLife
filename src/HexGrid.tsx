@@ -23,8 +23,10 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols, hexSize }) => {
   const [grid, setGrid] = useState(() => {
     return Array(rows).fill(null).map(() => Array(cols).fill(false));
   });
+  const [savedGrid, setSavedGrid] = useState<Array<Array<boolean>>>(Array(rows).fill(Array(cols).fill(false)));
 
   const isGridEmpty = !grid.flat().includes(true);
+  const isSavedGridEmpty = !savedGrid.flat().includes(true);
 
   const clearGrid = () => {
     setGrid(Array(rows).fill(null).map(() => Array(cols).fill(false)));
@@ -35,12 +37,19 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols, hexSize }) => {
     setGrid(nextGridState);
   };
 
+  const rewind = () => {
+    setGrid(savedGrid);
+  }
+
   const toggleHexagon = (row: number, col: number) => {
-    setGrid(prevGrid => {
-      const newGrid = prevGrid.map(innerArray => [...innerArray]);
-      newGrid[row][col] = !newGrid[row][col];
-      return newGrid;
-    });
+    const newGrid = grid.map(innerArray => [...innerArray]);
+    newGrid[row][col] = !newGrid[row][col];
+    setGrid(newGrid);
+
+    // If after toggling, the grid is not empty, save the state
+    if (newGrid.flat().includes(true)) {
+      setSavedGrid(newGrid);
+    }
   };
 
   return (
@@ -49,7 +58,7 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols, hexSize }) => {
         <ClearButton onClick={clearGrid} disabled={isGridEmpty} />
         <PlayButton onClick={moveForward} disabled={isGridEmpty} />
         <PauseButton disabled />
-        <RewindButton disabled={isGridEmpty} />
+        <RewindButton onClick={rewind} disabled={isSavedGridEmpty} />
       </ButtonContainer>
       {grid.map((row, i) => (
         <HexRow key={i} isEven={i % 2 === 0} hexSize={hexSize}>
