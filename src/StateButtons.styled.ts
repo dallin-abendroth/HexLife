@@ -31,5 +31,15 @@ export const ForgetStateButton = styled.button`
   position: absolute;
   top: 0;
   right: 0;
-  // ...styles...
+  border-radius: 50%;
+  color: white;
+  background-color: black;
+  border: 2px solid white;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:hover {
+    color: black;
+    background-color: white;
+  }
 `;
