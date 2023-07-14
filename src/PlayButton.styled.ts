@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 
-export const PlayButton = styled.button`
+type PlayButtonStyledProps = {
+  isPlaying: boolean,
+};
+
+export const PlayButton = styled.button<PlayButtonStyledProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,16 +17,24 @@ export const PlayButton = styled.button`
   cursor: pointer;
   transition: background-color 0.3s ease;
 
-  &:hover {
+  &:not(:disabled):hover {
     color: black;
     background-color: white;
   }
 
+  &:disabled {
+    border-color: #333;
+    cursor: not-allowed;
+
+    &::before {
+      color: #333;
+    }
+  }
+
   &::before {
-    content: "⏵";
+    content: "${props => (props.isPlaying ? '⏸' : '⏵')}";
     font-size: 40px;
     position: relative;
     top: 3px;
-    left: 1px;
   }
 `;

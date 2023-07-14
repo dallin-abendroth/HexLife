@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 
-export const ClearButton = styled.button`
+export const StepButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: bold;
   width: 50px;
   height: 50px;
   color: white;
@@ -13,7 +12,11 @@ export const ClearButton = styled.button`
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 24px;
+
+  &:not(:disabled):hover {
+    color: black;
+    background-color: white;
+  }
 
   &:disabled {
     border-color: #333;
@@ -24,15 +27,11 @@ export const ClearButton = styled.button`
     }
   }
 
-  &:not(:disabled):hover {
-    color: black;
-    background-color: white;
-  }
-
   &::before {
-    content: "X";
-    font-size: 30px;
+    content: "⤸";
+    font-size: 55px;
     position: relative;
-    top: 1px;
+    left: 3px;
+    -webkit-transform: rotate(275deg);
   }
 `;

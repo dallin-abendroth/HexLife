@@ -12,7 +12,10 @@ type HexagonProps = {
 const Hexagon: React.FC<HexagonProps> = React.memo(
   ({ row, col, hexSize, toggled, onClick }) => (
     <HexagonStyled
-      onClick={() => onClick(row, col)}
+      onClick={() => {
+        console.log("row"+row+",col"+col);
+        onClick(row, col);
+      }}
       toggled={toggled}
       hexSize={hexSize}
     />

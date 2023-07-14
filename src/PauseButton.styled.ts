@@ -28,17 +28,17 @@ export const PauseButton = styled.button`
     }
   }
 
+  &::before,
+  &::after {
+      content: "";
+      background-color: white;
+      width: 5px;
+      height: 20px;
+      display: inline-block;
+  }
+
   &:not(:disabled):hover {
     color: black;
     background-color: white;
-
-    &::before,
-    &::after {
-        content: "";
-        background-color: white;
-        width: 5px;
-        height: 20px;
-        display: inline-block;
-    }
   }
 `;
