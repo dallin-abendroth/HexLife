@@ -1,6 +1,5 @@
 import React from 'react';
 import HexGrid from './HexGrid';
-import styled from '@emotion/styled';
 import { AppContainer, HexGridContainer, Title } from './App.styles';
 
 
