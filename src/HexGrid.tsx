@@ -5,8 +5,7 @@ import styled from '@emotion/styled';
 import { ButtonContainer } from './ButtonContainer.styled';
 import { StepButton } from './StepButton.styled';
 import { PlayButton } from './PlayButton.styled';
-import { RewindButton } from './RewindButton.styled';
-import { PauseButton } from './PauseButton.styled';
+import SavedStateButton from './SavedStateButton';
 import { calculateNextGridState } from './utils';
 
 type HexGridProps = {
@@ -24,11 +23,11 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols, hexSize }) => {
   const [grid, setGrid] = useState(() => {
     return Array(rows).fill(null).map(() => Array(cols).fill(false));
   });
-  // const [savedGrid, setSavedGrid] = useState<Array<Array<boolean>>>(Array(rows).fill(Array(cols).fill(false)));
   const [isPlaying, setIsPlaying] = useState(false);
+  const [savedStates, setSavedStates] = useState<(boolean[][] | null)[]>([null, null, null]);
+
 
   const isGridEmpty = !grid.flat().includes(true);
-  // const isSavedGridEmpty = !savedGrid.flat().includes(true);
 
   // Store the interval id in a ref so we can clear it later
   const intervalIdRef = useRef<number | undefined>();
@@ -64,14 +63,14 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols, hexSize }) => {
   };
 
   const moveForward = () => {
-    if (!isGridEmpty) {
-      setGrid(currentGrid => calculateNextGridState(currentGrid));
-    }
+    setGrid(currentGrid => {
+      if (!currentGrid.flat().includes(true)) {
+        pause();
+        return currentGrid;
+      }
+      return calculateNextGridState(currentGrid);
+    })
   };
-
-  const rewind = () => {
-    // setGrid(savedGrid);
-  }
 
   const toggleHexagon = (rowIndex: number, colIndex: number) => {
     setGrid(oldGrid => {
@@ -83,13 +82,40 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols, hexSize }) => {
     });
   };
 
+  const saveState = (index: number) => {
+    let newSavedStates = [...savedStates];
+    newSavedStates[index] = grid;
+    setSavedStates(newSavedStates);
+  };
+
+  const resetToState = (index: number) => {
+    let newState = savedStates[index];
+    if (newState !== null) {
+      setGrid([...newState]);
+    }
+  };
+
+  const forgetState = (index: number) => {
+    let newSavedStates = [...savedStates];
+    newSavedStates[index] = null;
+    setSavedStates(newSavedStates);
+  };
+
   return (
     <div>
       <ButtonContainer>
         <ClearButton onClick={clearGrid} disabled={isPlaying || isGridEmpty} />
         <StepButton onClick={moveForward} disabled={isPlaying || isGridEmpty} />
         <PlayButton onClick={togglePlaying} disabled={isGridEmpty} isPlaying={isPlaying} />
-        <RewindButton onClick={rewind} disabled={isPlaying} />
+        {Array(3).fill(0).map((_, index) => (
+          <SavedStateButton
+            key={index}
+            savedState={savedStates[index]}
+            onUse={() => resetToState(index)}
+            onSave={() => saveState(index)}
+            onForget={() => forgetState(index)}
+          />
+        ))}
       </ButtonContainer>
       {grid.map((row, i) => (
         <HexRow key={i} isEven={i % 2 === 0} hexSize={hexSize}>
