@@ -8,12 +8,13 @@ type SavedStateButtonProps = {
   onUse: () => void,
   onSave: () => void,
   onForget: () => void,
+  disabled: boolean,
 };
 
-const SavedStateButton: React.FC<SavedStateButtonProps> = ({ savedState, onUse, onSave, onForget }) => {
+const SavedStateButton: React.FC<SavedStateButtonProps> = ({ savedState, onUse, onSave, onForget, disabled }) => {
   return (
     <div style={{position: 'relative'}}>
-      <SaveStateButton onClick={savedState ? onUse : onSave}>
+      <SaveStateButton disabled={!savedState && disabled} onClick={savedState ? onUse : onSave}>
         {savedState ? '★' : '☆'}
       </SaveStateButton>
       {savedState && (

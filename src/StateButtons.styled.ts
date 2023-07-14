@@ -21,9 +21,8 @@ export const SaveStateButton = styled.button`
     &:disabled {
         border-color: #333;
         cursor: not-allowed;
-        &::before {
-            color: #333;
-        }
+        font-weight: bold;
+        color: #333;
     }
 `;
 

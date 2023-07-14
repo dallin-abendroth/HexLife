@@ -114,6 +114,7 @@ const HexGrid: React.FC<HexGridProps> = ({ rows, cols, hexSize }) => {
             onUse={() => resetToState(index)}
             onSave={() => saveState(index)}
             onForget={() => forgetState(index)}
+            disabled={isGridEmpty}
           />
         ))}
       </ButtonContainer>
